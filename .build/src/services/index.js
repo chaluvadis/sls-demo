@@ -1,4 +1,5 @@
 import TodoServerice from "./todo/Service";
-const todoService = new TodoServerice();
+import dynamoDbClient from "../database";
+const todoService = new TodoServerice(dynamoDbClient());
 export default todoService;
 //# sourceMappingURL=index.js.map

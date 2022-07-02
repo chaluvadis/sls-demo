@@ -1,28 +1,54 @@
-import { TodoStatus } from "src/model/todoStatus";
 export default class TodoService {
-    constructor() {
+    constructor(dbClient) {
+        this.dbClient = dbClient;
         this.todos = [];
+        this.TableName = "Todos";
     }
-    getAllTodos() {
-        const todos = this.todos.filter(todo => todo.status !== TodoStatus.Deleted);
-        return Promise.resolve(todos);
+    async getAllTodos() {
+        const todos = await this.dbClient.scan({ TableName: this.TableName }).promise();
+        return todos.Items;
     }
-    getTodoById(id) {
-        const todo = this.todos.find(todo => todo.id === id);
-        return Promise.resolve(todo);
+    async getTodoById(id) {
+        const todo = await this.dbClient.get({
+            TableName: this.TableName,
+            Key: { id: id }
+        }).promise();
+        if (!todo.Item) {
+            throw new Error("Id doesn't exist");
+        }
+        return todo.Item;
     }
-    createTodo(todo) {
-        this.todos.push(todo);
-        return Promise.resolve(todo);
+    async createTodo(todo) {
+        const newTodo = await this.dbClient.put({
+            TableName: this.TableName,
+            Item: todo
+        }).promise();
+        return newTodo.$response.data;
     }
-    updateTodo(id, todo) {
-        const index = this.todos.findIndex(t => t.id === id);
-        this.todos[index] = todo;
-        return Promise.resolve(todo);
+    async updateTodo(id, todo) {
+        const updated = await this.dbClient
+            .update({
+            TableName: this.TableName,
+            Key: { id: id },
+            UpdateExpression: "set #status = :status",
+            ExpressionAttributeNames: {
+                "#status": "status",
+            },
+            ExpressionAttributeValues: {
+                ":status": todo.status,
+            },
+            ReturnValues: "ALL_NEW",
+        })
+            .promise();
+        return updated.Attributes;
     }
-    deleteTodo(id) {
-        this.todos.find(todo => todo.id === id).status = TodoStatus.Deleted;
-        return Promise.resolve();
+    async deleteTodo(id) {
+        return await this.dbClient.delete({
+            TableName: this.TableName,
+            Key: {
+                id: id
+            }
+        }).promise();
     }
 }
 //# sourceMappingURL=Service.js.map

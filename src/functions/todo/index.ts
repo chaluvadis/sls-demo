@@ -1,5 +1,4 @@
 import { handlerPath } from '@libs/handler-resolver';
-
 export const getAllTodos = {
     handler: `${handlerPath(__dirname)}/handler.getAllTodos`,
     events: [
@@ -11,7 +10,6 @@ export const getAllTodos = {
         },
     ],
 };
-
 export const createTodo = {
     handler: `${handlerPath(__dirname)}/handler.createTodo`,
     events: [
@@ -35,7 +33,6 @@ export const getTodo = {
         },
     ],
 };
-
 export const updateTodo = {
     handler: `${handlerPath(__dirname)}/handler.updateTodo`,
     events: [
@@ -47,7 +44,6 @@ export const updateTodo = {
         },
     ],
 };
-
 export const deleteTodo = {
     handler: `${handlerPath(__dirname)}/handler.deleteTodo`,
     events: [

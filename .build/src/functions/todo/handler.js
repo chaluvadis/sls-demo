@@ -1,8 +1,7 @@
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import todoService from '../../services';
 import { v4 } from "uuid";
-import { TodoStatus } from "src/model/todoStatus";
+import todoService from '../../services';
 export const getAllTodos = middyfy(async (event) => {
     const todos = await todoService.getAllTodos();
     return formatJSONResponse({ todos });
@@ -14,7 +13,7 @@ export const createTodo = middyfy(async (event) => {
             id,
             title: event.body['title'],
             description: event.body['description'],
-            status: TodoStatus.New,
+            status: true,
             createdAt: new Date()
         });
         return formatJSONResponse({ todo });
