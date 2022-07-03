@@ -14,7 +14,7 @@
     "@middy/core": "^3.1.0",
     "@middy/http-json-body-parser": "^3.1.0",
     "uuid": "^8.3.2",
-    "aws-sdk": "^2.1166.0"
+    "aws-sdk": "^2.1167.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.19.0",
@@ -22,10 +22,8 @@
     "@types/node": "^18.0.0",
     "@types/serverless": "^3.12.7",
     "@types/uuid": "^8.3.4",
-    "esbuild": "^0.14.48",
     "json-schema-to-ts": "^2.5.3",
     "serverless": "^3.19.0",
-    "serverless-esbuild": "^1.31.0",
     "serverless-offline": "^8.8.0",
     "serverless-plugin-typescript": "^2.1.2",
     "serverless-dynamodb-local": "^0.2.40",

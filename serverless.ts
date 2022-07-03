@@ -4,7 +4,6 @@ const serverlessConfiguration: AWS = {
   service: 'sls-demo',
   frameworkVersion: '3',
   plugins: [
-    'serverless-esbuild',
     'serverless-plugin-typescript',
     'serverless-offline',
     'serverless-dynamodb-local'
@@ -12,6 +11,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
+    stage: 'qa',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -33,6 +33,7 @@ const serverlessConfiguration: AWS = {
             "dynamodb:UpdateItem",
             "dynamodb:DeleteItem",
           ],
+          Resouce: 'arn:aws:dynamodb:us-east-1:344905241268:table/Todos'
         }]
       }
     }
@@ -40,23 +41,13 @@ const serverlessConfiguration: AWS = {
   functions: { getAllTodos, createTodo, getTodo, updateTodo, deleteTodo },
   package: { individually: true },
   custom: {
-    esbuild: {
-      bundle: true,
-      minify: false,
-      sourcemap: true,
-      exclude: ['aws-sdk'],
-      target: 'node14',
-      define: { 'require.resolve': undefined },
-      platform: 'node',
-      concurrency: 10,
-    },
     dynamodb: {
       start: {
         port: 5000,
         inMemory: true,
         migrate: true,
       },
-      stages: "dev"
+      stages: 'qa'
     }
   },
   resources: {
