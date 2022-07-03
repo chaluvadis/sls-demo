@@ -1,5 +1,4 @@
 import { Todo } from "src/model/todo";
-
 export interface ITodoService {
     getAllTodos(): Promise<Todo[]>;
     getTodoById(id: string): Promise<Todo>;

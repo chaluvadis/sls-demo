@@ -1,0 +1,17 @@
+Running "serverless" from node_modules
+
+Deploying sls-demo to stage dev (us-east-1)
+Compiling with Typescript...
+Using local tsconfig.json - tsconfig.json
+src/functions/todo/handler.ts (8,43): 'event' is declared but its value is never read.
+Typescript compiled.
+
+✖ Stack sls-demo-dev failed to deploy (12s)
+Environment: darwin, node 16.15.1, framework 3.19.0 (local) 3.19.0v (global), plugin 6.2.2, SDK 4.3.2
+Credentials: Local, "default" profile
+Docs:        docs.serverless.com
+Support:     forum.serverless.com
+Bugs:        github.com/serverless/serverless/issues
+
+Error:
+Cannot access package artifact at ".esbuild/.serverless/getAllTodos.zip" (for "getAllTodos"): ENOENT: no such file or directory, access '/Users/hola/Documents/myworks/learn-aws/sls-demo/.build/.esbuild/.serverless/getAllTodos.zip'

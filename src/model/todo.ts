@@ -1,8 +1,7 @@
-import { TodoStatus } from "./todoStatus";
 export interface Todo {
     id: string;
     title: string;
     description: string;
-    status: TodoStatus;
+    status: boolean;
     createdAt: Date;
 }

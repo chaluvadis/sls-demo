@@ -1,11 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import todoService from '../../services';
-
 import { v4 } from "uuid";
-import { TodoStatus } from "src/model/todoStatus";
 import { Todo } from "src/model/todo";
+import todoService from '../../services';
 
 export const getAllTodos = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const todos = await todoService.getAllTodos();
@@ -19,7 +17,7 @@ export const createTodo = middyfy(async (event: APIGatewayProxyEvent): Promise<A
             id,
             title: event.body['title'],
             description: event.body['description'],
-            status: TodoStatus.New,
+            status: true,
             createdAt: new Date()
         });
         return formatJSONResponse({ todo });
